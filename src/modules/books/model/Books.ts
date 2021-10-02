@@ -9,7 +9,7 @@ class Books {
 
   picture: string;
 
-  authors: string[];
+  authors: string;
 
   created_at: Date;
 
