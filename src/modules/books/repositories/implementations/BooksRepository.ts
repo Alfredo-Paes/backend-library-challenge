@@ -4,8 +4,18 @@ import { ICreateBookDTO } from '../IBooksRepository';
 class BooksRepository {
   private books: Books[];
 
+  private static INSTANCE: BooksRepository;
+
   private constructor() {
     this.books = [];
+  }
+
+  public static getInstance(): BooksRepository {
+    if (!BooksRepository.INSTANCE) {
+      BooksRepository.INSTANCE = new BooksRepository();
+    }
+
+    return BooksRepository.INSTANCE;
   }
 
   createBooks({

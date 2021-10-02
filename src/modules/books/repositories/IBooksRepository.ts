@@ -9,7 +9,7 @@ interface ICreateBookDTO {
 }
 
 interface IBooksRepository {
-  createBook({
+  createBooks({
     title,
     publishing_company,
     picture,
