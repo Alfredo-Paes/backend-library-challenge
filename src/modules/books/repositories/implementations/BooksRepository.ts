@@ -45,6 +45,16 @@ class BooksRepository {
 
     return book;
   }
+
+  findById(id: string): Books {
+    const bookId = this.books.find(bookId => bookId.id === id);
+
+    return bookId;
+  }
+
+  listBooks(): Books[] {
+    return this.books;
+  }
 }
 
 export { BooksRepository };

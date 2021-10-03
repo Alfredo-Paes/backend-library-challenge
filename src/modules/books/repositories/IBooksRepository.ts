@@ -19,6 +19,10 @@ interface IBooksRepository {
   }: ICreateBookDTO): void;
 
   findByTitle(title: string): Books;
+
+  findById(id: string): Books;
+
+  listBooks(): Books[];
 }
 
 export { ICreateBookDTO, IBooksRepository };
