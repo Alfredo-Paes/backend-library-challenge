@@ -18,12 +18,14 @@ class CreateBooksUseCase {
   }
 
   execute({ title, publishing_company, picture, authors }: IRequest): void {
-    this.booksRepository.createBooks({
+    const user = this.booksRepository.createBooks({
       title,
       publishing_company,
       picture,
       authors,
     });
+
+    return user;
   }
 }
 

@@ -23,7 +23,7 @@ class BooksRepository {
     publishing_company,
     authors,
     picture,
-  }: ICreateBookDTO): void {
+  }: ICreateBookDTO): Books {
     const books = new Books();
 
     Object.assign(books, {
@@ -32,9 +32,12 @@ class BooksRepository {
       authors,
       picture,
       created_at: new Date(),
+      updated_at: new Date(),
     });
 
     this.books.push(books);
+
+    return books;
   }
 }
 
