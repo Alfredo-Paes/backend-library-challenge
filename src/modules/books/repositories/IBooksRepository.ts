@@ -1,3 +1,5 @@
+import { Books } from '../model/Books';
+
 interface ICreateBookDTO {
   title: string;
 
@@ -15,6 +17,8 @@ interface IBooksRepository {
     picture,
     authors,
   }: ICreateBookDTO): void;
+
+  findByTitle(title: string): Books;
 }
 
 export { ICreateBookDTO, IBooksRepository };

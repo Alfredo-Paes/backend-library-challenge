@@ -39,6 +39,12 @@ class BooksRepository {
 
     return books;
   }
+
+  findByTitle(title: string): Books {
+    const book = this.books.find(titleBook => titleBook.title === title);
+
+    return book;
+  }
 }
 
 export { BooksRepository };
