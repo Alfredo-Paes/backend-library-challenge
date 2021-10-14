@@ -1,4 +1,4 @@
-import { Books } from '../../model/Books';
+import { Books } from '../../entities/Books';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
 class ListAllBooksUseCase {

@@ -1,4 +1,4 @@
-import { Books } from '../../model/Books';
+import { Books } from '../../entities/Books';
 import { ICreateBookDTO } from '../IBooksRepository';
 
 class BooksRepository {

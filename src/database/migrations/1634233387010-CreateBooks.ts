@@ -12,6 +12,10 @@ export class CreateBooks1634233387010 implements MigrationInterface {
             isPrimary: true,
           },
           {
+            name: 'title',
+            type: 'varchar',
+          },
+          {
             name: 'publishing_company',
             type: 'varchar',
           },
@@ -21,7 +25,8 @@ export class CreateBooks1634233387010 implements MigrationInterface {
           },
           {
             name: 'authors',
-            type: 'varchar',
+            type: 'boolean',
+            isArray: true,
           },
           {
             name: 'created_at',
