@@ -2,29 +2,39 @@ version: "3.9"
 
 services:
   database:
-    image: keinos/sqlite3:latest
-    container_name: database_library
+    image: postgres
+    container_name: database-library
     restart: always
-    ports:
-      - '9000:9000' 
-    stdin_open: true
-    tty: true
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=library
+      - POSTGRES_DB=database-library
     volumes:
-      - db:/data/sqlite
-    
+      - pgdata:/data/postgres
+
+
   app:
     build: .
-    container_name: library-challenge
+    container_name: library-backend
     restart: always
-    ports:
+    ports: 
       - 3333:3333
-    volumes:
+    environment:
+      - POSTGRES_DB=database-library
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=library
+      - POSTGRES_HOST=database
+    volumes: 
       - .:/usr/app
     links: 
       - database
     depends_on:
       - database
 
+
+
 volumes:
-  db:
+  pgdata:
     driver: local
