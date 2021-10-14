@@ -1,37 +1,43 @@
+import { inject, injectable } from 'tsyringe';
+import { Books } from '../../entities/Books';
+import { ICreateBookDTO } from '../../dtos/ICreateBookDTO';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
-interface IRequest {
-  title: string;
-
-  publishing_company: string;
-
-  picture: string;
-
-  authors: string;
-}
-
+@injectable()
 class CreateBooksUseCase {
   private booksRepository: IBooksRepository;
 
-  constructor(booksRepository: IBooksRepository) {
+  constructor(
+    @inject('BooksRepository')
+    booksRepository: IBooksRepository,
+  ) {
     this.booksRepository = booksRepository;
   }
 
-  execute({ title, publishing_company, picture, authors }: IRequest): void {
-    const bookAlreadyRegistered = this.booksRepository.findByTitle(title);
+  async execute({
+    id,
+    title,
+    publishing_company,
+    picture,
+    authors,
+  }: ICreateBookDTO): Promise<Books> {
+    const bookAlreadyRegistered = await this.booksRepository.findByTitle(title);
 
     if (bookAlreadyRegistered) {
       throw new Error('This book is already registered!');
     }
 
-    const user = this.booksRepository.createBooks({
+    const book = await this.booksRepository.createBooks({
+      id,
       title,
       publishing_company,
       picture,
       authors,
     });
 
-    return user;
+    console.log('book', book);
+
+    return book;
   }
 }
 

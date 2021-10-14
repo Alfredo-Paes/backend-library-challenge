@@ -1,15 +1,24 @@
+import { inject, injectable } from 'tsyringe';
 import { Books } from '../../entities/Books';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
+@injectable()
 class ListAllBooksUseCase {
   private booksRepository: IBooksRepository;
 
-  constructor(booksRepository: IBooksRepository) {
+  constructor(
+    @inject('BooksRepository')
+    booksRepository: IBooksRepository,
+  ) {
     this.booksRepository = booksRepository;
   }
 
-  execute(): Books[] {
-    const allBooks = this.booksRepository.listBooks();
+  async execute(): Promise<Books[]> {
+    const allBooks = await this.booksRepository.listBooks();
+
+    if (allBooks.length === 0) {
+      throw new Error('Books not found!');
+    }
 
     return allBooks;
   }

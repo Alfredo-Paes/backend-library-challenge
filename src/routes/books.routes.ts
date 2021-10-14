@@ -1,15 +1,14 @@
-import { request, Router } from 'express';
-import { createBooksController } from '../modules/books/useCases/createBooks';
-import { listAllBooksController } from '../modules/books/useCases/listAllBooks';
+import { Router } from 'express';
+import { CreateBookController } from '../modules/books/useCases/createBooks/CreateBooksController';
+import { ListAllBooksController } from '../modules/books/useCases/listAllBooks/ListAllBooksController';
 
 const booksRoutes = Router();
 
-booksRoutes.post('/', (request, response) =>
-  createBooksController.handle(request, response),
-);
+const createBooksController = new CreateBookController();
+const listAllBooksController = new ListAllBooksController();
 
-booksRoutes.get('/', (request, response) =>
-  listAllBooksController.handle(request, response),
-);
+booksRoutes.post('/', createBooksController.handle);
+
+booksRoutes.get('/', listAllBooksController.handle);
 
 export { booksRoutes };

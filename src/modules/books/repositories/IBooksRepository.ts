@@ -1,14 +1,5 @@
+import { ICreateBookDTO } from '../dtos/ICreateBookDTO';
 import { Books } from '../entities/Books';
-
-interface ICreateBookDTO {
-  title: string;
-
-  publishing_company: string;
-
-  picture: string;
-
-  authors: string;
-}
 
 interface IBooksRepository {
   createBooks({
@@ -16,13 +7,13 @@ interface IBooksRepository {
     publishing_company,
     picture,
     authors,
-  }: ICreateBookDTO): void;
+  }: ICreateBookDTO): Promise<Books>;
 
-  findByTitle(title: string): Books;
+  findByTitle(title: string): Promise<Books>;
 
-  findById(id: string): Books;
+  findById(id: string): Promise<Books>;
 
-  listBooks(): Books[];
+  listBooks(): Promise<Books[]>;
 }
 
 export { ICreateBookDTO, IBooksRepository };

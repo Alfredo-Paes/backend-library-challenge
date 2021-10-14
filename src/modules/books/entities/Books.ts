@@ -21,7 +21,7 @@ class Books {
   @Column()
   picture: string;
 
-  @Column('simple-array')
+  @Column('text', { array: true })
   authors: string[];
 
   @CreateDateColumn()

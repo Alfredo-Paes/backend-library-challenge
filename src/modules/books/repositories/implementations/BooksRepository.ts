@@ -1,32 +1,24 @@
+import { getRepository, Repository } from 'typeorm';
 import { Books } from '../../entities/Books';
-import { ICreateBookDTO } from '../IBooksRepository';
+import { ICreateBookDTO } from '../../dtos/ICreateBookDTO';
+import { IBooksRepository } from '../IBooksRepository';
 
-class BooksRepository {
-  private books: Books[];
+class BooksRepository implements IBooksRepository {
+  private repository: Repository<Books>;
 
-  private static INSTANCE: BooksRepository;
-
-  private constructor() {
-    this.books = [];
+  constructor() {
+    this.repository = getRepository(Books);
   }
 
-  public static getInstance(): BooksRepository {
-    if (!BooksRepository.INSTANCE) {
-      BooksRepository.INSTANCE = new BooksRepository();
-    }
-
-    return BooksRepository.INSTANCE;
-  }
-
-  createBooks({
+  async createBooks({
+    id,
     title,
     publishing_company,
     authors,
     picture,
-  }: ICreateBookDTO): Books {
-    const books = new Books();
-
-    Object.assign(books, {
+  }: ICreateBookDTO): Promise<Books> {
+    const book = this.repository.create({
+      id,
       title,
       publishing_company,
       authors,
@@ -35,25 +27,27 @@ class BooksRepository {
       updated_at: new Date(),
     });
 
-    this.books.push(books);
-
-    return books;
+    await this.repository.save(book);
+    console.log('book repository', book);
+    return book;
   }
 
-  findByTitle(title: string): Books {
-    const book = this.books.find(titleBook => titleBook.title === title);
+  async findByTitle(title: string): Promise<Books> {
+    const book = await this.repository.findOne({ title });
 
     return book;
   }
 
-  findById(id: string): Books {
-    const bookId = this.books.find(bookId => bookId.id === id);
+  async findById(id: string): Promise<Books> {
+    const book_id = await this.repository.findOne(id);
 
-    return bookId;
+    return book_id;
   }
 
-  listBooks(): Books[] {
-    return this.books;
+  async listBooks(): Promise<Books[]> {
+    const books = await this.repository.find();
+
+    return books;
   }
 }
 

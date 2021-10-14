@@ -1,19 +1,13 @@
 import { Request, Response } from 'express';
-
+import { container } from 'tsyringe';
 import { CreateBooksUseCase } from './CreateBooksUseCase';
 
 class CreateBookController {
-  private createBooksUseCase: CreateBooksUseCase;
-
-  constructor(createBooksUseCase: CreateBooksUseCase) {
-    this.createBooksUseCase = createBooksUseCase;
-  }
-
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     try {
       const { title, publishing_company, picture, authors } = request.body;
-
-      const bookCreated = this.createBooksUseCase.execute({
+      const createBooksUseCase = container.resolve(CreateBooksUseCase);
+      const bookCreated = await createBooksUseCase.execute({
         title,
         publishing_company,
         authors,

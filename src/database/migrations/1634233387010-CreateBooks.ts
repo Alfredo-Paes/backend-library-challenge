@@ -25,7 +25,7 @@ export class CreateBooks1634233387010 implements MigrationInterface {
           },
           {
             name: 'authors',
-            type: 'boolean',
+            type: 'varchar',
             isArray: true,
           },
           {
