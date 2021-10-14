@@ -33,7 +33,8 @@
         ],
         "prettier/prettier": "error",
         "camelcase": "off",
-        "no-shadow": "off"
+        "no-shadow": "off",
+        "class-methods-use-this": "off"
     },
     "settings": {
         "import/resolver": {
