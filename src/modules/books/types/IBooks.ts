@@ -1,3 +1,0 @@
-interface IBook {}
-
-export { IBook };
