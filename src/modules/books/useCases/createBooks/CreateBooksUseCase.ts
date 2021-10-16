@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { Books } from '../../entities/Books';
+import { AppError } from '../../../../errors/AppError';
 import { ICreateBookDTO } from '../../dtos/ICreateBookDTO';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
@@ -24,7 +25,7 @@ class CreateBooksUseCase {
     const bookAlreadyRegistered = await this.booksRepository.findByTitle(title);
 
     if (bookAlreadyRegistered) {
-      throw new Error('This book is already registered!');
+      throw new AppError('This book is already registered!');
     }
 
     const book = await this.booksRepository.createBooks({

@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../../errors/AppError';
 import { Books } from '../../entities/Books';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
@@ -16,8 +17,8 @@ class ListBookByIdUseCase {
   async execute(id: string): Promise<Books> {
     const listBook = await this.booksRepository.findById(id);
 
-    if (!listBook.id) {
-      throw new Error('Book not found!');
+    if (!listBook) {
+      throw new AppError('Book not found!', 404);
     }
 
     return listBook;

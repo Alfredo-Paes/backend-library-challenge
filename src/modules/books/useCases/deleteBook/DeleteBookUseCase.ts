@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../../errors/AppError';
 import { Books } from '../../entities/Books';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
@@ -17,7 +18,7 @@ class DeleteBookUseCase {
     const findBook = await this.booksRepository.findById(id);
 
     if (!findBook) {
-      throw new Error('Book not found!');
+      throw new AppError('Book not found!', 404);
     }
 
     const book = await this.booksRepository.deleteBook(id);

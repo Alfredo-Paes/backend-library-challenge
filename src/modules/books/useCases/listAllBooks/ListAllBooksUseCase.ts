@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../../errors/AppError';
 import { Books } from '../../entities/Books';
 import { IBooksRepository } from '../../repositories/IBooksRepository';
 
@@ -17,7 +18,7 @@ class ListAllBooksUseCase {
     const allBooks = await this.booksRepository.listBooks();
 
     if (allBooks.length === 0) {
-      throw new Error('Books not found!');
+      throw new AppError('Books not found!', 404);
     }
 
     return allBooks;

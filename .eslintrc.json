@@ -34,7 +34,8 @@
         "prettier/prettier": "error",
         "camelcase": "off",
         "no-shadow": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "no-unused-vars": "off"
     },
     "settings": {
         "import/resolver": {
