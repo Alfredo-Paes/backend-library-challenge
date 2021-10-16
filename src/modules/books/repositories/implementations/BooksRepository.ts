@@ -54,13 +54,13 @@ class BooksRepository implements IBooksRepository {
     id: string,
     { title, publishing_company, picture, authors }: IUpdateBookDTO,
   ): Promise<Books> {
-    const updatedBook = await this.repository
-      .createQueryBuilder('books')
-      .update<Books>(Books, { title, publishing_company, picture, authors })
-      .where('books.id = :id', { id })
-      .returning('*')
-      .updateEntity(true)
-      .execute();
+    const updatedBook = await this.repository.update(id, {
+      title,
+      publishing_company,
+      picture,
+      authors,
+    });
+
     return updatedBook.raw[0];
   }
 }
