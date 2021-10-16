@@ -63,6 +63,12 @@ class BooksRepository implements IBooksRepository {
 
     return updatedBook.raw[0];
   }
+
+  async deleteBook(id: string): Promise<Books> {
+    const book = await this.repository.delete(id);
+
+    return book.raw[0];
+  }
 }
 
 export { BooksRepository };

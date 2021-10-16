@@ -20,6 +20,8 @@ interface IBooksRepository {
     id: string,
     { title, publishing_company, picture, authors }: IUpdateBookDTO,
   ): Promise<Books>;
+
+  deleteBook(id: string): Promise<Books>;
 }
 
 export { ICreateBookDTO, IBooksRepository };
