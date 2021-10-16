@@ -1,6 +1,4 @@
-interface ICreateBookDTO {
-  id?: string;
-
+interface IUpdateBookDTO {
   title: string;
 
   publishing_company: string;
@@ -10,4 +8,4 @@ interface ICreateBookDTO {
   authors: string[];
 }
 
-export { ICreateBookDTO };
+export { IUpdateBookDTO };

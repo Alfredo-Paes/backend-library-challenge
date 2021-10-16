@@ -35,8 +35,6 @@ class CreateBooksUseCase {
       authors,
     });
 
-    console.log('book', book);
-
     return book;
   }
 }

@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import { Books } from '../../entities/Books';
 import { ICreateBookDTO } from '../../dtos/ICreateBookDTO';
 import { IBooksRepository } from '../IBooksRepository';
+import { IUpdateBookDTO } from '../../dtos/IUpdateBookDTO';
 
 class BooksRepository implements IBooksRepository {
   private repository: Repository<Books>;
@@ -28,7 +29,6 @@ class BooksRepository implements IBooksRepository {
     });
 
     await this.repository.save(book);
-    console.log('book repository', book);
     return book;
   }
 
@@ -48,6 +48,20 @@ class BooksRepository implements IBooksRepository {
     const books = await this.repository.find();
 
     return books;
+  }
+
+  async updateBooks(
+    id: string,
+    { title, publishing_company, picture, authors }: IUpdateBookDTO,
+  ): Promise<Books> {
+    const updatedBook = await this.repository
+      .createQueryBuilder('books')
+      .update<Books>(Books, { title, publishing_company, picture, authors })
+      .where('books.id = :id', { id })
+      .returning('*')
+      .updateEntity(true)
+      .execute();
+    return updatedBook.raw[0];
   }
 }
 
