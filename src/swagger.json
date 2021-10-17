@@ -1,0 +1,384 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title":"Library back-end Challenge - library management system",
+        "description": "Challenge proposed by DevChallenge, for backend, in which it is necessary to develop a manager for a library.",
+        "version":"1.0.0",
+        "contact": {
+            "email": "alfredo.alfpaes@gmail.com",
+            "url": "https://github.com/Alfredo-Paes"
+        }
+    },
+    "tags":[
+        {
+            "name":"Library",
+            "descriptions":"library management"
+        }
+    ],
+    "paths":{
+        "/books":{
+            "post":{
+                "tags":["Book"],
+                "summary": "Create a book",
+                "description": "Create a new book",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publishing_company": {
+                                        "type":"string"
+                                    },
+                                    "picture": {
+                                        "type":"string"
+                                    },
+                                    "authors": {
+                                        "type":"array"
+                                    }
+                                },
+                                "example": {
+                                    "id": "4ebdd9e7-7584-406b-8fa3-c1517f749c42",
+                                    "title": "Memórias póstumas de Brás Cubas",
+                                    "publishing_company": "Penguin & Companhia das Letras",
+                                    "picture": "https://m.media-amazon.com/images/P/B00OCXZJTI.01._SCLZZZZZZZ_SX500_.jpg",
+                                    "authors": [
+                                      "Machado de Assis"
+                                    ],
+                                    "created_at": "2021-10-14T19:46:50.407Z",
+                                    "updated_at": "2021-10-17T01:08:05.723Z"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publishing_company": {
+                                        "type":"string"
+                                    },
+                                    "picture": {
+                                        "type":"string"
+                                    },
+                                    "authors": {
+                                        "type":"array"
+                                    }
+                                },
+                                "example": {
+                                    "id": "4ebdd9e7-7584-406b-8fa3-c1517f749c42",
+                                    "title": "Memórias póstumas de Brás Cubas",
+                                    "publishing_company": "Penguin & Companhia das Letras",
+                                    "picture": "https://m.media-amazon.com/images/P/B00OCXZJTI.01._SCLZZZZZZZ_SX500_.jpg",
+                                    "authors": [
+                                      "Machado de Assis"
+                                    ],
+                                    "created_at": "2021-10-14T19:46:50.407Z",
+                                    "updated_at": "2021-10-17T01:08:05.723Z"
+                                }
+                              }
+                            }
+                          }
+                    }, 
+                    "400": {
+                        "description": "This book is already registered!",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                  "error": "string"
+                                },
+                                "example": {
+                                  "error": "This book is already registered!"
+                                }
+                              }
+                            }
+                          }
+                    }
+                }
+            },
+
+            "get": {
+                "tags":["Book"],
+                "summary": "Get a book",
+                "description": "List all books registred.",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "publishing_company": {
+                                                "type":"string"
+                                            },
+                                            "picture": {
+                                                "type":"string"
+                                            },
+                                            "authors": {
+                                                "type":"array"
+                                            }
+                                        },
+                                        "example":[
+                                            {
+                                                "id": "4ebdd9e7-7584-406b-8fa3-c1517f749c42",
+                                                "title": "Memórias póstumas de Brás Cubas",
+                                                "publishing_company": "Penguin & Companhia das Letras",
+                                                "picture": "https://m.media-amazon.com/images/P/B00OCXZJTI.01._SCLZZZZZZZ_SX500_.jpg",
+                                                "authors": [
+                                                  "Machado de Assis"
+                                                ],
+                                                "created_at": "2021-10-14T19:46:50.407Z",
+                                                "updated_at": "2021-10-17T01:08:05.723Z"
+                                            },
+                                            {
+                                                "id": "0d01e983-e4fb-41c9-873f-13212607814a",
+                                                "title": "O xangô de Baker Street",
+                                                "publishing_company": "Companhia das Letras",
+                                                "picture": "https://images-na.ssl-images-amazon.com/images/I/71jEyoyqOpL.jpg",
+                                                "authors": [
+                                                  "Jô Soares"
+                                                ],
+                                                "created_at": "2021-10-16T02:48:59.603Z",
+                                                "updated_at": "2021-10-17T01:42:09.707Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Books not found!",
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                              "type": "object",
+                              "properties": {
+                                "error": "string"
+                              },
+                              "example": {
+                                "error": "Books not found!"
+                              }
+                            }
+                          }
+                        }
+                      }
+                }
+            }
+        },
+
+        "/books/{id}":{
+            "get": {
+                "tags":["Book"],
+                "summary": "Get a book by id",
+                "description": "Searches for a specific book by passing his id in as parameter",
+                "parameters":[
+                    {
+                        "in":"path",
+                        "name":"id",
+                        "required": true,
+                        "description": "book ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publishing_company": {
+                                        "type":"string"
+                                    },
+                                    "picture": {
+                                        "type":"string"
+                                    },
+                                    "authors": {
+                                        "type":"array"
+                                    }
+                                },
+                                  "example": {
+                                    "id": "4ebdd9e7-7584-406b-8fa3-c1517f749c42",
+                                    "title": "Memórias póstumas de Brás Cubas",
+                                    "publishing_company": "Penguin & Companhia das Letras",
+                                    "picture": "https://m.media-amazon.com/images/P/B00OCXZJTI.01._SCLZZZZZZZ_SX500_.jpg",
+                                    "authors": ["Machado de Assis"],
+                                    "created_at": "2021-10-14T19:46:50.407Z",
+                                    "updated_at": "2021-10-17T01:08:05.723Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description":"Book not found!",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                  "error": "string"
+                                },
+                                "example": {
+                                  "error": "Book not found!"
+                                }
+                              }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags":["Book"],
+                "summary": "Update a book",
+                "description": "Update a specific book by passing his id in as parameter",
+                "parameters":[
+                    {
+                        "in":"path",
+                        "name":"id",
+                        "required": true,
+                        "description": "book ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publishing_company": {
+                                        "type":"string"
+                                    },
+                                    "picture": {
+                                        "type":"string"
+                                    },
+                                    "authors": {
+                                        "type":"array"
+                                    }
+                                },
+                                  "example": {
+                                    "id": "4ebdd9e7-7584-406b-8fa3-c1517f749c42",
+                                    "title": "Memórias póstumas de Brás Cubas",
+                                    "publishing_company": "Penguin & Companhia das Letras",
+                                    "picture": "https://m.media-amazon.com/images/P/B00OCXZJTI.01._SCLZZZZZZZ_SX500_.jpg",
+                                    "authors": ["Machado de Assis"],
+                                    "created_at": "2021-10-14T19:46:50.407Z",
+                                    "updated_at": "2021-10-17T01:08:05.723Z"
+                                  }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description":"Book not found!",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                  "error": "string"
+                                },
+                                "example": {
+                                  "error": "Book not found!"
+                                }
+                              }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":["Book"],
+                "summary": "Delete a book",
+                "description": "Delete a book.",
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "id",
+                      "required": true,
+                      "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "publishing_company": {
+                                        "type":"string"
+                                    },
+                                    "picture": {
+                                        "type":"string"
+                                    },
+                                    "authors": {
+                                        "type":"array"
+                                    }
+                                }
+                              }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Book not Found!",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "error": "string"
+                                },
+                                "example": {
+                                    "error": "Book not found!"
+                                }
+                              }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
